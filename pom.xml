@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--usefulDetailsBeforeYouStart :)>
+  <purposeOfTheFramework>
+    Creation of easy understanding and reusable framework based on Cucumber and Selenium Java
+  </purposeOfTheFramework>
+  <startOfDevelopment>July 2021</startOfDevelopment>
+  <finishOfDevelopment>Never-ending story...</finishOfDevelopment>
+  <authors> 
+    <author>David Schevela</author>
+    <author>Peter Psenka</author>
+    <author>Matus Simko</author>
+  </authors>
+  <reviewers>
+    <reviewer>Branislav Baca</reviewer>
+  </reviewers>
+  <ifAnyConcernsSuggestionsFindingsQuestions>
+    Never hesitate to contact us over any type of platform(email, Teams, facebook etc...)
+  </ifAnyConcernsSuggestionsFindingsQuestions>
+</usefulDetailsBeforeYouStart-->
+  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>gurkensalat</groupId>
+  <artifactId>gurkensalat</artifactId>
+  <version>0.99</version>
+  
+  <name>gurkensalat</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.1.3</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-support</artifactId>
+      <version>4.1.3</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-api</artifactId>
+      <version>4.1.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+     <groupId>io.cucumber</groupId>
+     <artifactId>cucumber-java</artifactId>
+     <version>4.2.3</version>
+   </dependency>
+    
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>4.2.3</version>
+      <scope>test</scope>
+    </dependency>   
+
+    <dependency>
+      <groupId>info.cukes</groupId>
+      <artifactId>cucumber-jvm-deps</artifactId>
+      <version>1.0.5</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.vimalselvam</groupId>
+      <artifactId>cucumber-extentsreport</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>info.cukes</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>1.2.5</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.aventstack</groupId>
+      <artifactId>extentreports</artifactId>
+      <version>3.1.2</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.relevantcodes</groupId>
+      <artifactId>extentreports</artifactId>
+      <version>2.41.2</version>
+    </dependency>
+        
+   <dependency>
+    <groupId>com.github.fommil</groupId>
+    <artifactId>java-logging</artifactId>
+    <version>1.1</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>org.apache.logging.log4j</groupId>
+     <artifactId>log4j-api</artifactId>
+     <version>2.14.1</version>
+   </dependency>
+  
+   <dependency>
+     <groupId>org.apache.logging.log4j</groupId>
+     <artifactId>log4j-core</artifactId>
+     <version>2.14.1</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>commons-io</groupId>
+     <artifactId>commons-io</artifactId>
+     <version>2.6</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>com.microsoft.edge</groupId>
+     <artifactId>msedge-selenium-tools-java</artifactId>
+     <version>3.141.0</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>com.browserstack</groupId>
+     <artifactId>browserstack-local-java</artifactId>
+     <version>1.0.3</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>io.github.bonigarcia</groupId>
+     <artifactId>webdrivermanager</artifactId>
+     <version>5.0.3</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>org.yaml</groupId>
+     <artifactId>snakeyaml</artifactId>
+     <version>1.30</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>com.jayway.jsonpath</groupId>
+     <artifactId>json-path</artifactId>
+     <version>2.2.0</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>javax.xml.bind</groupId>
+     <artifactId>jaxb-api</artifactId>
+     <version>2.4.0-b180830.0359</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>org.zeroturnaround</groupId>
+     <artifactId>zt-zip</artifactId>
+     <version>1.14</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>org.projectlombok</groupId>
+     <artifactId>lombok</artifactId>
+     <version>1.18.22</version>
+     <scope>provided</scope>
+   </dependency>
+   
+   <dependency>
+     <groupId>com.github.javadev</groupId>
+	 <artifactId>underscore8</artifactId>
+	 <version>1.6</version>
+   </dependency>
+   
+   <dependency>
+	 <groupId>com.oracle.database.jdbc</groupId>
+	 <artifactId>ojdbc8</artifactId>
+	 <version>19.3.0.0</version>
+	 <scope>system</scope>
+	 <systemPath>${project.basedir}/lib/ojdbc8.jar</systemPath>
+   </dependency>
+   
+   <dependency>
+     <groupId>io.rest-assured</groupId>
+     <artifactId>rest-assured</artifactId>
+     <version>4.5.1</version>
+     <scope>test</scope>
+   </dependency>
+   
+   <dependency>
+     <groupId>com.cedarsoftware</groupId>
+     <artifactId>json-io</artifactId>
+     <version>4.13.0</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>io.appium</groupId>
+     <artifactId>java-client</artifactId>
+     <version>5.0.4</version>
+   </dependency>
+   
+   <dependency>
+     <groupId>io.github.sukgu</groupId>
+     <artifactId>automation</artifactId>
+     <version>0.1.3</version>
+   </dependency>
+   
+   <!-- This dependency is needed if you want use winium
+   <dependency>
+     <groupId>com.github.2gis.winium</groupId>
+     <artifactId>winium-webdriver</artifactId>
+     <version>0.1.0-1</version>
+   </dependency>
+   -->
+        
+  </dependencies> 
+  
+  <build>
+     <plugins>
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-compiler-plugin</artifactId>
+         <version>3.7.0</version>
+         <configuration>
+           <source>1.8</source>
+           <target>1.8</target>
+            <encoding>UTF-8</encoding>          
+         </configuration>
+       </plugin> 
+
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-surefire-plugin</artifactId>
+         <version>2.21.0</version>
+           <configuration>
+             <includes>
+               <include>TestRunner.java</include>
+             </includes>
+           </configuration>
+       </plugin>
+       
+       <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>2.5.12</version>
+        </plugin>
+                 
+     </plugins>  
+     
+     <resources>
+       <resource>
+         <directory>src/test/java</directory>
+       </resource>
+     </resources> 
+   </build>
+</project>

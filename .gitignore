@@ -1,0 +1,6 @@
+/target/
+reports/*
+web_drivers/*
+output/*
+src/test/java/config.properties
+src/logfile.log
