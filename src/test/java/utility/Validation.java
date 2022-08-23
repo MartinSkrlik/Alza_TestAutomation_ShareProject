@@ -84,6 +84,9 @@ public class Validation {
         if (!condition) {
             msg = "Expected value is '" + true + "', but actual value is '" + condition + "'. ";
             logFailMessage();
+        } else {
+            msg = "Expected value matches actual value";
+            logPassMessage();
         }
     }
     
@@ -92,6 +95,14 @@ public class Validation {
         if (condition) {
             msg = "Expected value is '" + false + "', but actual value is '" + condition + "'. ";
             logFailMessage();
+        }
+
+        if (condition) {
+            msg = "Expected value is '" + false + "', but actual value is '" + condition + "'. ";
+            logFailMessage();
+        } else {
+            msg = "Expected value does not match actual value";
+            logPassMessage();
         }
     }
     
