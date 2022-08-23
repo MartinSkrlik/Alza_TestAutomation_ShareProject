@@ -30,10 +30,8 @@ public class AlzaPage {
             "CLEAR SELECTED PARAMETERS"),
         TextForVerification (By.xpath("//*[@itemprop='name']"),
                 "TITLE TABLETS FOR VERFICATION"),
-
         BrandsFilterGroup (By.xpath("//div[@id='producers']"), "//div[contains(text(),'Brands')]"),
         Filter(null, "Required Filter"),
-
         Description (By.xpath("//div[@class='Description']"), "Description of product"),
         ;
         private String description;
@@ -70,7 +68,6 @@ public class AlzaPage {
         public WebElement checkInputElement (String name) {return driver.findElement(checkInputElementLocator(name));}
         public By checkInputElementLocator  (String name) {return By.xpath("//div[@id='parametrization']//*[normalize-space()= '" + name + "']//parent::div//input");}
 
-        public WebElement getFilterElement(String filter){return driver.findElement(getFilterLocator(filter));}
-        private By getFilterLocator(String filter){ return By.xpath("//div[@id='producers']//a[contains(text(),'" + filter + "')]");}
+
 
 }

@@ -5,7 +5,7 @@ Feature: Alza Filter Products
   Scenario Outline:
     Given   Open browser "<BROWSER>"
     When    Go to page "<PAGE>"
-    And     Search for "<TEXT>"
+    And     Search "<TEXT>"
 #    And     Verify "<TITLE>" is visible
     And     Remember Item Count before filtering
     And     Set price range between "<MIN>" to "<MAX>"
