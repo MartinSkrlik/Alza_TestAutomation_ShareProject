@@ -46,6 +46,7 @@ public class TestStepActions {
     public void clearAndSet(WebElement element, String value){
     	element.sendKeys(Keys.CONTROL, Keys.BACK_SPACE);
     	element.sendKeys(value);
+		element.sendKeys(Keys.ENTER);
 	}
 /**
      * Scrolls specific element to view (top of screen).
