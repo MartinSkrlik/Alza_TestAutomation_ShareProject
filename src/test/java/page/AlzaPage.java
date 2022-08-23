@@ -24,6 +24,13 @@ public class AlzaPage {
                 "PRICE MIN INPUT"),
         PriceMaxInput  (By.xpath("//input[contains(@class, 'max-value')]"),
                 "PRICE MAX INPUT"),
+        ItemCountAfterTwoFIlter (By.xpath("//span[@class='numberItem']"),
+                "ITEM COUNT AFTER TWO FILTER"),
+        ClearSelectedParameters (By.xpath("//div[@id='parametrization']//a[@id='clearFilter']"),
+            "CLEAR SELECTED PARAMETERS"),
+        TextForVerification (By.xpath("//*[@itemprop='name']"),
+                "TITLE TABLETS FOR VERFICATION")
+
         ;
         private String description;
         private By findBy;
@@ -44,7 +51,20 @@ public class AlzaPage {
         public WebElement getElement(WebDriver driver) {
             return driver.findElement(getLocator());
         }
+
     }
+
+        public WebElement getCheckBoxElement (String name) {return driver.findElement(getCheckBoxElementLocator(name));}
+        public By getCheckBoxElementLocator  (String name) {return By.xpath("//div[@id='parametrization']//*[normalize-space()= '" + name + "']//parent::div//label");}
+
+        public WebElement getstatusElement (String name) {return driver.findElement(getstatusElementLocator(name));}
+        public By getstatusElementLocator  (String name) {return By.xpath("//div[@id='parametrization']//*[normalize-space()= '" + name + "']//parent::div//label[@class='alzacheckbox classic checked']");}
+
+        public WebElement getUncheckElement (String name) {return driver.findElement(getUncheckElementLocator(name));}
+        public By getUncheckElementLocator  (String name) {return By.xpath("//div[@id='parametrization']//*[normalize-space()= '" + name + "']//parent::div//label[@class='alzacheckbox classic']");}
+
+        public WebElement checkInputElement (String name) {return driver.findElement(checkInputElementLocator(name));}
+        public By checkInputElementLocator  (String name) {return By.xpath("//div[@id='parametrization']//*[normalize-space()= '" + name + "']//parent::div//input");}
 
 
 }
