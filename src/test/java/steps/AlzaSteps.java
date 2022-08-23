@@ -22,18 +22,6 @@ public class AlzaSteps extends TestStepActions {
     String itemsPreFiltering = "";
     String itemsAfterallfilter = "";
 
-
-
-    @And("Search for {string}")
-    public void search_for(String value) {
-        if (waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20)){
-            clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
-        }
-        waitForElementVisible(driver, SearchBar.getLocator(), SearchBar.getDescription(), 20);
-        setElementText(SearchBar.getElement(driver), value, SearchBar.getDescription());
-        clickElement(SearchButton.getElement(driver), SearchButton.getDescription());
-    }
-
     @And("Remember Item Count before filtering")
     public void rememberItemCountBeforeFiltering() {
         itemsPreFiltering = getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription());
@@ -42,19 +30,20 @@ public class AlzaSteps extends TestStepActions {
     @And("Set price range between {string} to {string}")
     public void setPriceRangeBetweenTo(String arg0, String arg1) {
         waitForElementVisible(driver, PriceMinInput.getLocator(), PriceMinInput.getDescription(), 20);
-        driver.findElement(PriceMinInput.getLocator()).clear();
-        sleep(500);
-        setElementText(PriceMinInput.getElement(driver), "100", PriceMinInput.getDescription());
+        clearAndSet(PriceMinInput.getElement(driver), arg0);
         waitForElementVisible(driver, PriceMaxInput.getLocator(), PriceMaxInput.getDescription(), 20);
-        driver.findElement(PriceMaxInput.getLocator()).clear();
-        sleep(500);
-        setElementText(PriceMaxInput.getElement(driver), "1000", PriceMaxInput.getDescription());
+        clearAndSet(PriceMaxInput.getElement(driver), arg1);
         sleep(10000);
     }
 
     @And("Search {string}")
     public void search(String arg0) {
-
+        if (waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20)){
+            clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
+        }
+        waitForElementVisible(driver, SearchBar.getLocator(), SearchBar.getDescription(), 20);
+        setElementText(SearchBar.getElement(driver), arg0, SearchBar.getDescription());
+        clickElement(SearchButton.getElement(driver), SearchButton.getDescription());
     }
 
     @And("Verify {string} is visible")

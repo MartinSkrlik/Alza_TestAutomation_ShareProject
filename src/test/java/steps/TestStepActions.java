@@ -42,7 +42,11 @@ public class TestStepActions {
         return result;
         });
     }
-    
+
+    public void clearAndSet(WebElement element, String value){
+    	element.sendKeys(Keys.CONTROL, Keys.BACK_SPACE);
+    	element.sendKeys(value);
+	}
 /**
      * Scrolls specific element to view (top of screen).
      * Creates a record in logger.
@@ -484,7 +488,6 @@ public class TestStepActions {
  	* @param driver - [WebDriver] - current WebDriver.
  	* @param findBy - [By] - specified by xpath path.
  	* @param maxTimeInSeconds - [int] - max. waiting time in seconds.
- 	* @param nameOfElement - [String] - Element name.
  	* @return true/false - return true/false option.
  	* 
  	*/ 	
