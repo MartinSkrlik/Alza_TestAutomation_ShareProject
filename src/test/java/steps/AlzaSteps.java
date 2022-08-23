@@ -12,6 +12,7 @@ import utility.Validation;
 
 import static page.AlzaPage.alzaItems.*;
 import java.util.HashMap;
+import java.util.List;
 
 public class AlzaSteps extends TestStepActions {
     static runner.TestRunner TestRunner = new TestRunner();
@@ -20,6 +21,7 @@ public class AlzaSteps extends TestStepActions {
 
     AlzaPage page = new AlzaPage(driver);
     String itemsPreFiltering = "";
+    String itemsAfterFilteringBrand = "";
     String itemsAfterallfilter = "";
 
     @And("Remember Item Count before filtering")
@@ -65,6 +67,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Remember Item Count after brand filter")
     public void rememberItemCountAfterBrandFilter() {
+        itemsAfterFilteringBrand = getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription());
     }
 
     @Then("Remember Item Count after all filters")
@@ -84,10 +87,14 @@ public class AlzaSteps extends TestStepActions {
     }
 
     @Then("Verify product description contains {string}")
-    public void verifyProductDescriptionContains(String arg0) {
-
-
-
+    public void verifyProductDescriptionContains(String checkbox) {
+        scrollElementIntoMiddleOfScreen(driver, BrandsFilterGroup.getElement(driver));
+        List<WebElement> elements = driver.findElements(Description.getLocator());
+        for (WebElement element : elements) {
+            new Validation("DESCRIPTION", element.getText(), checkbox).contains();
+        }
+        sleep(1000);
+        ReportExtender.logScreen(driver);
     }
 
     @Then("Uncheck checkbox {string}")
