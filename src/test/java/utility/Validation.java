@@ -85,7 +85,7 @@ public class Validation {
             msg = "Expected value is '" + true + "', but actual value is '" + condition + "'. ";
             logFailMessage();
         } else {
-            msg = "Expected value matches actual value";
+            msg = "Expected value matches actual value ";
             logPassMessage();
         }
     }
@@ -101,7 +101,7 @@ public class Validation {
             msg = "Expected value is '" + false + "', but actual value is '" + condition + "'. ";
             logFailMessage();
         } else {
-            msg = "Expected value does not match actual value";
+            msg = "Expected value does not match actual value ";
             logPassMessage();
         }
     }
