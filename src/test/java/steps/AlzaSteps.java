@@ -50,8 +50,10 @@ public class AlzaSteps extends TestStepActions {
         clickElement(SearchButton.getElement(driver), SearchButton.getDescription());
     }
 
-    @And("Verify {string} is visible")
-    public void verifyIsVisible(String arg0) {
+    @And("Verify page title {string} is visible")
+    public void verifyPage(String title) {
+        waitForElementVisible(driver, page.getPageTitleLocator(title), PageTitle.getDescription(), 60);
+        new Validation("Page Title", getElementText(page.getPageTitleElement(title), PageTitle.getDescription()), title).contains();
     }
 
 
@@ -107,7 +109,6 @@ public class AlzaSteps extends TestStepActions {
             new Validation("DESCRIPTION", element.getText(), checkbox).contains();
         }
         sleep(1000);
-        ReportExtender.logScreen(driver);
     }
 
     @Then("Uncheck checkbox {string}")
@@ -139,5 +140,10 @@ public class AlzaSteps extends TestStepActions {
     @Then("Verify subpage {string} is active")
     public void verifySubpageIsActive(String arg0) {
         new Validation("Verify active subpage", getElementText(SubpageName.getElement(driver), SubpageName.getDescription()), arg0).stringEquals();
+    }
+
+    @And("Do a screenshot")
+    public void doAScreenshot() {
+        ReportExtender.logScreen(driver);
     }
 }

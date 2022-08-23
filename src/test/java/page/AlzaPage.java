@@ -31,11 +31,12 @@ public class AlzaPage {
         TextForVerification(By.xpath("//*[@itemprop='name']"),
                 "TITLE TABLETS FOR VERFICATION"),
         BrandsFilterGroup(By.xpath("//div[@id='producers']"),
-                "//div[contains(text(),'Brands')]"),
+                "Brands Filter Group"),
         Description(By.xpath("//div[@class='Description']"),
                 "Description of product"),
         SubpageName(By.xpath("(//li[contains(@class, 'ui-state-active')]/a)[1]"),
                 "SUBPAGE NAME"),
+        PageTitle (null, "Page title"),
         ;
         private String description;
         private By findBy;
@@ -106,4 +107,6 @@ public class AlzaPage {
     public By getItemPriceByIndexLocator(String value) {
         return By.xpath("(//span[@class='price-box__price'])[" + value + "]");
     }
+    public WebElement getPageTitleElement (String title) {return driver.findElement(getPageTitleLocator(title));}
+    public By getPageTitleLocator (String title) {return By.xpath("//h1[contains(text(),'" + title + "')]");}
 }
