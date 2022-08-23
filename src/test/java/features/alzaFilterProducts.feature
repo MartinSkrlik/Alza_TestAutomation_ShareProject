@@ -36,7 +36,6 @@ Feature: Alza Filter Products
     Then    Verify item count after filter clearing
     And     Do a screenshot
 
-
     Examples:
       | BROWSER | PAGE | TEXT   | TITLE   | MIN | MAX  | NAME_CHECKBOX2 | NAME_CHECKBOX1 | TAB1              | TAB2              |
       | CHROME  | Alza | Tablet | Tablets | 100 | 1000 | GPS            | Apple          | Price High to Low | Price Low to High |
