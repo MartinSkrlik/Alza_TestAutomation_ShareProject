@@ -17,26 +17,23 @@ Feature: Alza Filter Products
     Then    Remember Item Count after all filters
     Then    Switch to subpage "<TAB1>"
     Then    Verify subpage "<TAB1>" is active
-    And     Do a screenshot
     Then    Verify first item price between "<MIN>" and "<MAX>"
     And     Do a screenshot
     Then    Switch to subpage "<TAB2>"
     Then    Verify subpage "<TAB2>" is active
-    And     Do a screenshot
     Then    Verify first item price between "<MIN>" and "<MAX>"
     And     Do a screenshot
     Then    Verify product description contains "<NAME_CHECKBOX1>"
-    And     Do a screenshot
     Then    Verify product description contains "<NAME_CHECKBOX2>"
     And     Do a screenshot
     Then    Uncheck checkbox "<NAME_CHECKBOX2>"
-#    Then    Verify item count after uncheck item filter
+    Then    Verify item count after uncheck item filter
     And     Do a screenshot
     Then    Uncheck checkbox "<NAME_CHECKBOX1>"
-#    Then    Verify item count after uncheck brand filter
     And     Do a screenshot
+    Then    Verify item count after uncheck brand filter
     Then    Clear parameters
-#    Then    Verify item count after filter clearing
+    Then    Verify item count after filter clearing
     And     Do a screenshot
 
 

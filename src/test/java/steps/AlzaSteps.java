@@ -66,9 +66,9 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Click checkbox {string}")
     public void click_Checkbox(String value) {
+        scrollElementIntoMiddleOfScreen(driver,page.getCheckBoxElement(value));
         checkCheckbox(page.getCheckBoxElement(value), "CLICK ON CHECKBOX");
-        boolean check = waitIfElementAppears(driver, page.getstatusElementLocator(value),"CHECKBOX IS VISIBLE",10);
-        new Validation("checkbox is selected", check).isTrue();
+        verifyAlzaIsChecked(driver, page.getCheckBoxElementLocator(value));
     }
 
     @Then("Remember Item Count after brand filter")
@@ -93,6 +93,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Verify first item price between {string} and {string}")
     public void verifyFirstItemPriceBetweenAnd(String arg0, String arg1) {
+        scrollElementIntoMiddleOfScreen(driver,page.getItemPriceByIndexElement("1"));
         String stringItemPrice = getElementText(page.getItemPriceByIndexElement("1"), "FIRST ITEM PRICE");
         stringItemPrice = stringItemPrice.replace("&nbsp;€", "");
         double itemPrice = Double.parseDouble(stringItemPrice);
@@ -118,9 +119,10 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Uncheck checkbox {string}")
     public void uncheckCheckbox(String value) {
+        scrollElementIntoMiddleOfScreen(driver,page.getCheckBoxElement(value));
         checkCheckbox(page.getCheckBoxElement(value), "UNCHECK CHECKBOX");
-        boolean sada = waitIfElementAppears(driver, page.getUncheckElementLocator(value),"CHECKBOX IS UNCHECKED",10 );
-        new Validation("checkbox is selected", sada).isTrue();
+        verifyAlzaIsUnchecked(driver, page.getCheckBoxElementLocator(value));
+
     }
 
     @Then("Verify item count after uncheck item filter")
