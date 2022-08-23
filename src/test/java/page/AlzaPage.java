@@ -28,8 +28,6 @@ public class AlzaPage {
                 "ITEM COUNT AFTER TWO FILTER"),
         ClearSelectedParameters(By.xpath("//div[@id='parametrization']//a[@id='clearFilter']"),
                 "CLEAR SELECTED PARAMETERS"),
-        TextForVerification(By.xpath("//*[@itemprop='name']"),
-                "TITLE TABLETS FOR VERFICATION"),
         BrandsFilterGroup(By.xpath("//div[@id='producers']"),
                 "Brands Filter Group"),
         Description(By.xpath("//div[@class='Description']"),

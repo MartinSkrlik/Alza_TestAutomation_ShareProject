@@ -23,21 +23,20 @@ public class AlzaSteps extends TestStepActions {
     String itemsPreFiltering = "";
     String itemsAfterPriceFiltering = "";
     String itemsAfterFilteringBrand = "";
-    String itemsAfterallfilter = "";
+    String itemsAfterFilteringItems = "";
 
     @And("Remember Item Count before filtering")
     public void rememberItemCountBeforeFiltering() {
+        waitForFullPageLoad(driver, 20);
         itemsPreFiltering = getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription());
     }
 
     @And("Set price range between {string} to {string}")
     public void setPriceRangeBetweenTo(String arg0, String arg1) {
         waitForElementVisible(driver, PriceMinInput.getLocator(), PriceMinInput.getDescription(), 20);
-        sleep(3000);
         clearAndSet(PriceMinInput.getElement(driver), arg0);
         waitForElementVisible(driver, PriceMaxInput.getLocator(), PriceMaxInput.getDescription(), 20);
         clearAndSet(PriceMaxInput.getElement(driver), arg1);
-        sleep(10000);
     }
 
     @And("Search {string}")
@@ -50,7 +49,7 @@ public class AlzaSteps extends TestStepActions {
         clickElement(SearchButton.getElement(driver), SearchButton.getDescription());
     }
 
-    @And("Verify page title {string} is visible")
+    @And("Verify title {string} is visible")
     public void verifyPage(String title) {
         waitForElementVisible(driver, page.getPageTitleLocator(title), PageTitle.getDescription(), 60);
         new Validation("Page Title", getElementText(page.getPageTitleElement(title), PageTitle.getDescription()), title).contains();
@@ -59,26 +58,28 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Remember Item Count after price filter")
     public void rememberItemCountAfterPriceFilter() {
+        waitForFullPageLoad(driver, 20);
         itemsAfterPriceFiltering = getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription());
     }
 
     @Then("Click checkbox {string}")
     public void click_Checkbox(String value) {
         checkCheckbox(page.getCheckBoxElement(value), "CLICK ON CHECKBOX");
-        waitForElementVisible(driver, page.getstatusElementLocator(value),"CHECKBOX IS VISIBLE",10 );
+        boolean check = waitIfElementAppears(driver, page.getstatusElementLocator(value),"CHECKBOX IS VISIBLE",10);
         sleep(2000);
-        new Validation("checkbox is selected", verifyIsSelected(driver, page.checkInputElementLocator(value), value)).isTrue();
+        new Validation("checkbox is selected", check).isTrue();
     }
 
     @Then("Remember Item Count after brand filter")
     public void rememberItemCountAfterBrandFilter() {
+        waitForFullPageLoad(driver, 20);
         itemsAfterFilteringBrand = getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription());
     }
 
     @Then("Remember Item Count after all filters")
     public void rememberItemCountAfterAllFilters() {
-        itemsAfterallfilter = getElementText(ItemCountAfterTwoFIlter.getElement(driver), ItemCountAfterTwoFIlter.getDescription());
-        ReportExtender.logInfo(itemsAfterallfilter);
+        waitForFullPageLoad(driver, 20);
+        itemsAfterFilteringItems = getElementText(ItemCountAfterTwoFIlter.getElement(driver), ItemCountAfterTwoFIlter.getDescription());
     }
 
     @Then("Switch to subpage {string}")
@@ -114,31 +115,39 @@ public class AlzaSteps extends TestStepActions {
     @Then("Uncheck checkbox {string}")
     public void uncheckCheckbox(String value) {
         checkCheckbox(page.getCheckBoxElement(value), "UNCHECK CHECKBOX");
-        waitForElementVisible(driver, page.getUncheckElementLocator(value),"CHECKBOX IS UNCHECKED",10 );
-        sleep(2000);
+        boolean sada = waitIfElementAppears(driver, page.getUncheckElementLocator(value),"CHECKBOX IS UNCHECKED",10 );
+        new Validation("checkbox is selected", sada).isTrue();
     }
 
     @Then("Verify item count after uncheck item filter")
     public void verifyItemCountAfterUncheckItemFilter() {
+        waitForFullPageLoad(driver, 20);
+        new Validation("VALIDATION AFTER ITEM FILTER", getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription()), itemsAfterFilteringBrand).stringEquals();
+        scrollElementIntoMiddleOfScreen(driver, ItemCountSpan.getElement(driver));
     }
 
     @Then("Verify item count after uncheck brand filter")
     public void verifyItemCountAfterUncheckBrandFilter() {
+        waitForFullPageLoad(driver, 20);
+        new Validation("VALIDATION AFTER BRAND FILTER", getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription()), itemsAfterPriceFiltering).stringEquals();
+        scrollElementIntoMiddleOfScreen(driver, ItemCountSpan.getElement(driver));
     }
 
     @Then("Clear parameters")
     public void clearParameters() {
-    clickElement(ClearSelectedParameters.getElement(driver), ClearSelectedParameters.getDescription());
-    sleep(2000);
-    waitForElementVisible(driver, TextForVerification.getLocator(), TextForVerification.getDescription(), 10);
+        clickElement(ClearSelectedParameters.getElement(driver), ClearSelectedParameters.getDescription());
     }
 
     @Then("Verify item count after filter clearing")
     public void verifyItemCountAfterFilterClearing() {
+        waitForFullPageLoad(driver, 20);
+        new Validation("VALIDATION AFTER CLEARING ALL FILTERS", getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription()), itemsPreFiltering).stringEquals();
+        scrollElementIntoMiddleOfScreen(driver, ItemCountSpan.getElement(driver));
     }
 
     @Then("Verify subpage {string} is active")
     public void verifySubpageIsActive(String arg0) {
+        waitForFullPageLoad(driver, 20);
         new Validation("Verify active subpage", getElementText(SubpageName.getElement(driver), SubpageName.getDescription()), arg0).stringEquals();
     }
 

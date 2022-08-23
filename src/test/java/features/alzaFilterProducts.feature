@@ -6,7 +6,7 @@ Feature: Alza Filter Products
     Given   Open browser "<BROWSER>"
     When    Go to page "<PAGE>"
     And     Search "<TEXT>"
-    And     Verify page title "<TITLE>" is visible
+    And     Verify title "<TITLE>" is visible
     And     Do a screenshot
     And     Remember Item Count before filtering
     And     Set price range between "<MIN>" to "<MAX>"
@@ -30,13 +30,13 @@ Feature: Alza Filter Products
     Then    Verify product description contains "<NAME_CHECKBOX2>"
     And     Do a screenshot
     Then    Uncheck checkbox "<NAME_CHECKBOX2>"
-#    Then    Verify item count after uncheck item filter
+    Then    Verify item count after uncheck item filter
     And     Do a screenshot
     Then    Uncheck checkbox "<NAME_CHECKBOX1>"
-#    Then    Verify item count after uncheck brand filter
+    Then    Verify item count after uncheck brand filter
     And     Do a screenshot
     Then    Clear parameters
-#    Then    Verify item count after filter clearing
+    Then    Verify item count after filter clearing
     And     Do a screenshot
 
 
