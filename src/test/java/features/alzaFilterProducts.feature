@@ -6,7 +6,7 @@ Feature: Alza Filter Products
     Given   Open browser "<BROWSER>"
     When    Go to page "<PAGE>"
     And     Search "<TEXT>"
-    And     Verify page title "<TITLE>" is visible
+    And     Verify Page Title "<TITLE>" is visible
     And     Do a screenshot
     And     Remember Item Count before filtering
     And     Set price range between "<MIN>" to "<MAX>"

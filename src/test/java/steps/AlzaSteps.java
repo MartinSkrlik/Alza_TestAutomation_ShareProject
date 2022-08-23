@@ -2,7 +2,6 @@ package steps;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import page.AlzaPage;
@@ -51,8 +50,8 @@ public class AlzaSteps extends TestStepActions {
         clickElement(SearchButton.getElement(driver), SearchButton.getDescription());
     }
 
-    @And("Verify title {string} is visible")
-    public void verifyPage(String title) {
+    @And("Verify Page Title {string} is visible")
+    public void verifyPageTitle(String title) {
         waitForElementVisible(driver, page.getPageTitleLocator(title), PageTitle.getDescription(), 60);
         new Validation("Page Title", getElementText(page.getPageTitleElement(title), PageTitle.getDescription()), title).contains();
     }
