@@ -2,7 +2,6 @@ package steps;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import page.AlzaPage;
@@ -51,8 +50,8 @@ public class AlzaSteps extends TestStepActions {
         clickElement(SearchButton.getElement(driver), SearchButton.getDescription());
     }
 
-    @And("Verify title {string} is visible")
-    public void verifyPage(String title) {
+    @And("Verify Page Title {string} is visible")
+    public void verifyPageTitle(String title) {
         waitForElementVisible(driver, page.getPageTitleLocator(title), PageTitle.getDescription(), 60);
         new Validation("Page Title", getElementText(page.getPageTitleElement(title), PageTitle.getDescription()), title).contains();
     }
@@ -67,9 +66,9 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Click checkbox {string}")
     public void click_Checkbox(String value) {
+        scrollElementIntoMiddleOfScreen(driver,page.getCheckBoxElement(value));
         checkCheckbox(page.getCheckBoxElement(value), "CLICK ON CHECKBOX");
-        boolean check = waitIfElementAppears(driver, page.getstatusElementLocator(value),"CHECKBOX IS VISIBLE",10);
-        new Validation("checkbox is selected", check).isTrue();
+        verifyAlzaIsChecked(driver, page.getCheckBoxElementLocator(value));
     }
 
     @Then("Remember Item Count after brand filter")
@@ -94,6 +93,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Verify first item price between {string} and {string}")
     public void verifyFirstItemPriceBetweenAnd(String arg0, String arg1) {
+        scrollElementIntoMiddleOfScreen(driver,page.getItemPriceByIndexElement("1"));
         String stringItemPrice = getElementText(page.getItemPriceByIndexElement("1"), "FIRST ITEM PRICE");
         stringItemPrice = stringItemPrice.replace("&nbsp;€", "");
         double itemPrice = Double.parseDouble(stringItemPrice);
@@ -119,9 +119,10 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Uncheck checkbox {string}")
     public void uncheckCheckbox(String value) {
+        scrollElementIntoMiddleOfScreen(driver,page.getCheckBoxElement(value));
         checkCheckbox(page.getCheckBoxElement(value), "UNCHECK CHECKBOX");
-        boolean sada = waitIfElementAppears(driver, page.getUncheckElementLocator(value),"CHECKBOX IS UNCHECKED",10 );
-        new Validation("checkbox is selected", sada).isTrue();
+        verifyAlzaIsUnchecked(driver, page.getCheckBoxElementLocator(value));
+
     }
 
     @Then("Verify item count after uncheck item filter")

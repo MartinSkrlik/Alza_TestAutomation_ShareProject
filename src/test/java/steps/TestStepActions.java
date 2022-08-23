@@ -652,8 +652,32 @@ public class TestStepActions {
         	return false;
         }
     }
-    
-/**
+
+	public boolean verifyAlzaIsChecked(WebDriver driver, By locator) {
+		if(driver.findElement(locator).getAttribute("class").contains("checked")) {
+			ReportExtender.logPass("Element is checked");
+			return true;
+		}
+		else {
+			ReportExtender.logWarning("Element not is checked");
+			return false;
+		}
+	}
+
+	public boolean verifyAlzaIsUnchecked(WebDriver driver, By locator) {
+		if(!driver.findElement(locator).getAttribute("class").contains("checked")) {
+			ReportExtender.logPass("Element is not checked");
+			return true;
+		}
+		else {
+			ReportExtender.logWarning("Element is checked");
+			return false;
+		}
+	}
+
+
+
+	/**
  	* Checks if a specific element has a specific text.
  	* Creates a record in logger and report. 
 	* @param element - [WebElement] - web element we are checking.
