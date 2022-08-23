@@ -56,7 +56,6 @@ public class AlzaSteps extends TestStepActions {
         new Validation("Page Title", getElementText(page.getPageTitleElement(title), PageTitle.getDescription()), title).contains();
     }
 
-
     @Then("Remember Item Count after price filter")
     public void rememberItemCountAfterPriceFilter() {
         sleep(2000);
