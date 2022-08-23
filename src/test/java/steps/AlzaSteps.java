@@ -21,6 +21,7 @@ public class AlzaSteps extends TestStepActions {
 
     AlzaPage page = new AlzaPage(driver);
     String itemsPreFiltering = "";
+    String itemsAfterPriceFiltering = "";
     String itemsAfterFilteringBrand = "";
     String itemsAfterallfilter = "";
 
@@ -32,6 +33,7 @@ public class AlzaSteps extends TestStepActions {
     @And("Set price range between {string} to {string}")
     public void setPriceRangeBetweenTo(String arg0, String arg1) {
         waitForElementVisible(driver, PriceMinInput.getLocator(), PriceMinInput.getDescription(), 20);
+        sleep(3000);
         clearAndSet(PriceMinInput.getElement(driver), arg0);
         waitForElementVisible(driver, PriceMaxInput.getLocator(), PriceMaxInput.getDescription(), 20);
         clearAndSet(PriceMaxInput.getElement(driver), arg1);
@@ -55,6 +57,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Remember Item Count after price filter")
     public void rememberItemCountAfterPriceFilter() {
+        itemsAfterPriceFiltering = getElementText(ItemCountSpan.getElement(driver), ItemCountSpan.getDescription());
     }
 
     @Then("Click checkbox {string}")
@@ -74,16 +77,26 @@ public class AlzaSteps extends TestStepActions {
     public void rememberItemCountAfterAllFilters() {
         itemsAfterallfilter = getElementText(ItemCountAfterTwoFIlter.getElement(driver), ItemCountAfterTwoFIlter.getDescription());
         ReportExtender.logInfo(itemsAfterallfilter);
-
     }
 
-    @Then("Switch to tab {string}")
-    public void switchToTab(String arg0) {
-
+    @Then("Switch to subpage {string}")
+    public void switchToSubpage(String arg0) {
+        waitForElementVisible(driver, page.getSubpageLocator(arg0), "SUBPAGE", 20);
+        clickElement(page.getSubpageElement(arg0), "SUBPAGE");
     }
 
     @Then("Verify first item price between {string} and {string}")
     public void verifyFirstItemPriceBetweenAnd(String arg0, String arg1) {
+        String stringItemPrice = getElementText(page.getItemPriceByIndexElement("1"), "FIRST ITEM PRICE").replace("&nbsp;€", "");
+        double itemPrice = Double.parseDouble(stringItemPrice);
+        double min = Double.parseDouble(arg0);
+        double max = Double.parseDouble(arg1);
+
+        boolean isInRange = false;
+        if (itemPrice >= min && itemPrice <= max){
+            isInRange = true;
+        }
+        new Validation("Verify item price is price filter range", isInRange).isTrue();
     }
 
     @Then("Verify product description contains {string}")
@@ -121,5 +134,10 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Verify item count after filter clearing")
     public void verifyItemCountAfterFilterClearing() {
+    }
+
+    @Then("Verify subpage {string} is active")
+    public void verifySubpageIsActive(String arg0) {
+        new Validation("Verify active subpage", getElementText(SubpageName.getElement(driver), SubpageName.getDescription()), arg0).stringEquals();
     }
 }
