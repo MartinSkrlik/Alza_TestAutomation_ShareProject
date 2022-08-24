@@ -873,9 +873,18 @@ public class TestStepActions {
     	assertNotNull(element);
     	Actions builder = new Actions(driver);
     	builder.moveToElement(element).click(element);
+		builder.moveToElement(element);
     	builder.perform();
-    } 
-   
+    }
+
+	public void mouseOverElement(WebDriver driver, WebElement element, String description) {
+		ReportExtender.generateLogAction(element, "Hover Mouse Over Element", description);
+		assertNotNull(element);
+		Actions builder = new Actions(driver);
+		builder.moveToElement(element);
+		builder.perform();
+	}
+
 //TO-DO//    
 /** 
  	* Retrieves value stored in session.

@@ -39,4 +39,24 @@ Feature: Alza Filter Products
     Examples:
       | BROWSER | PAGE | TEXT   | TITLE   | MIN | MAX  | NAME_CHECKBOX2 | NAME_CHECKBOX1 | TAB1              | TAB2              |
       | CHROME  | Alza | Tablet | Tablets | 10 | 1000 | GPS            | Apple          | Price High to Low | Price Low to High |
-      | CHROME  | Alza | Tablet | Tablets | 300 | 700  | Bluetooth      | Samsung        | Price High to Low | Price Low to High |
+#      | CHROME  | Alza | Tablet | Tablets | 300 | 700  | Bluetooth      | Samsung        | Price High to Low | Price Low to High |
+
+
+  @AlzaProductVanityVariants
+  Scenario Outline: Variants Checks
+    Given   Open browser "<BROWSER>"
+    When    Go to page "<PAGE>"
+    And     Accept Cookies
+    And     Search "<TEXT>"
+    And     Verify Page Title "<TITLE>" is visible
+    Then    Click on Product with Variants "<INDEX>"
+    And     Verify Title Product Page
+    Then    Verify Product Variants
+
+
+
+    Examples:
+      | BROWSER | PAGE | TEXT  | TITLE | INDEX |
+      | CHROME  | Alza | phone | phone | 1     |
+
+

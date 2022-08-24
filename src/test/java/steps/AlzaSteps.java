@@ -23,6 +23,8 @@ public class AlzaSteps extends TestStepActions {
     String itemsAfterPriceFiltering = "";
     String itemsAfterFilteringBrand = "";
     String itemsAfterFilteringItems = "";
+    String hoverText = "";
+    String productTitle = "";
 
     @And("Remember Item Count before filtering")
     public void rememberItemCountBeforeFiltering() {
@@ -40,11 +42,14 @@ public class AlzaSteps extends TestStepActions {
         clearAndSet(PriceMaxInput.getElement(driver), arg1);
     }
 
+    @And("Accept Cookies")
+    public void acceptCookies() {
+        waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20);
+        clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
+    }
+
     @And("Search {string}")
     public void search(String arg0) {
-        if (waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20)){
-            clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
-        }
         waitForElementVisible(driver, SearchBar.getLocator(), SearchBar.getDescription(), 20);
         setElementText(SearchBar.getElement(driver), arg0, SearchBar.getDescription());
         clickElement(SearchButton.getElement(driver), SearchButton.getDescription());
@@ -54,6 +59,8 @@ public class AlzaSteps extends TestStepActions {
     public void verifyPageTitle(String title) {
         waitForElementVisible(driver, page.getPageTitleLocator(title), PageTitle.getDescription(), 60);
         new Validation("Page Title", getElementText(page.getPageTitleElement(title), PageTitle.getDescription()), title).contains();
+        sleep(2000);
+        ReportExtender.logScreen(driver);
     }
 
     @Then("Remember Item Count after price filter")
@@ -161,4 +168,46 @@ public class AlzaSteps extends TestStepActions {
     public void doAScreenshot() {
         ReportExtender.logScreen(driver);
     }
+
+    @Then("Click on Product with Variants {string}")
+    public void clickOnProductWithVariants(String n_product) {
+        productTitle = getElementText(page.getProductVariantsElement(n_product),ProductWithVariants.getDescription());
+        scrollElementIntoMiddleOfScreen(driver,page.getProductVariantsElement(n_product));
+        waitForFullPageLoad(driver,10);
+        ReportExtender.logScreen(driver);
+        clickElement(page.getProductVariantsElement(n_product),ProductWithVariants.getDescription());
+        waitForFullPageLoad(driver,50);
+    }
+
+    @And("Verify Title Product Page")
+    public void verifyTitleProductPage() {
+        new Validation("PRODUCT PAGE TITLE",getElementText(ProductTitle.getElement(driver),ProductTitle.getDescription()),productTitle).contains();
+        ReportExtender.logScreen(driver);
+    }
+
+    @Then("Verify Product Variants")
+    public void verifyProductVariants() {
+        int elementsCount = driver.findElements(Tiles.getLocator()).size();
+        for (int i = 1; i<= elementsCount; i++ ) {
+            //2.click
+            clickElement(page.getTileElement(i),Tiles.getDescription());
+            sleep(2000);
+            //1.hover on element -> remember title from pop up
+            mouseOverElement(driver, page.getTileElement(i), Tiles.getDescription());
+            hoverText = getElementText(HoverText.getElement(driver),HoverText.getDescription());
+            ReportExtender.logScreen(driver);
+            ReportExtender.logInfo(hoverText);
+            //2.click
+            clickElement(page.getTileElement(i),Tiles.getDescription());
+            sleep(2000);
+//            driver.navigate().refresh();
+//            waitForFullPageLoad(driver,50);
+            //3.verify text from pop up with title
+            new Validation("PRODUCT TITLE",getElementText(ProductTitle.getElement(driver),ProductTitle.getDescription()),hoverText).contains();
+            ReportExtender.logScreen(driver);
+        }
+    }
+
+
+
 }

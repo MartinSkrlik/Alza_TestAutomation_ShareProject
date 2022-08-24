@@ -1,6 +1,8 @@
 package steps;
 
 import java.util.HashMap;
+
+import cucumber.api.java.en.And;
 import org.openqa.selenium.WebDriver;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -9,6 +11,8 @@ import utility.ConfigFileReader;
 import utility.Log;
 import utility.ReportExtender;
 import runner.TestRunner;
+
+import static page.AlzaPage.alzaItems.CookieAcceptButton;
 
 public class ManageBrowser {	
 
@@ -67,7 +71,9 @@ public class ManageBrowser {
 			logPageError(e);
 		}
 	}
-	
+
+
+
 	@Given("^Open application \"([^\"]*)\"$")
     public void open_application(String application) throws Throwable {
 		String execFileLocation = ConfigFileReader.getValueFromProperties(application);
