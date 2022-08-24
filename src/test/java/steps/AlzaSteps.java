@@ -198,7 +198,8 @@ public class AlzaSteps extends TestStepActions {
     @And("Verify Title Product Page")
     public void verifyTitleProductPage() {
         if(!failedToLocate) {
-            new Validation("PRODUCT PAGE TITLE", getElementText(ProductTitle.getElement(driver), ProductTitle.getDescription()), productTitle).contains();
+            String elementText = getElementText(ProductTitle.getElement(driver), ProductTitle.getDescription());
+            new Validation("PRODUCT PAGE TITLE", elementText, productTitle).contains();
             ReportExtender.logScreen(driver);
         }
     }
