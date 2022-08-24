@@ -57,8 +57,9 @@ public class AlzaSteps extends TestStepActions {
 
     @And("Verify Page Title {string} is visible")
     public void verifyPageTitle(String title) {
+        String elementText = getElementText(page.getPageTitleElement(title), PageTitle.getDescription());
         waitForElementVisible(driver, page.getPageTitleLocator(title), PageTitle.getDescription(), 60);
-        new Validation("Page Title", getElementText(page.getPageTitleElement(title), PageTitle.getDescription()), title).contains();
+        new Validation("Page Title", elementText, title).contains();
         sleep(2000);
         ReportExtender.logScreen(driver);
     }
@@ -175,11 +176,10 @@ public class AlzaSteps extends TestStepActions {
     public void clickOnProductWithVariants(String n_product) {
         sleep(2000);
         while(!verifyElementIsPresent(driver,page.getProductVariantsLocator(n_product),ProductWithVariants.getDescription())) {
-            if(!verifyElementIsPresent(driver,LoadMoreBtn.getLocator(),LoadMoreBtn.getDescription())){
+            if(!verifyElementIsPresent(driver,LoadMoreBtn.getLocator(),LoadMoreBtn.getDescription())) {
                 failedToLocate = true;
-                break;
-            }else{
                 ReportExtender.logWarning("Product has no variants.");
+                break;
             }
             clickElement(LoadMoreBtn.getElement(driver), LoadMoreBtn.getDescription());
             sleep(2000);
@@ -215,7 +215,8 @@ public class AlzaSteps extends TestStepActions {
             hoverText = getElementText(HoverText.getElement(driver),HoverText.getDescription());
             ReportExtender.logScreen(driver);
             ReportExtender.logInfo(hoverText);
-            new Validation("PRODUCT TITLE",getElementText(ProductTitle.getElement(driver),ProductTitle.getDescription()),hoverText).contains();
+            String elementText = getElementText(ProductTitle.getElement(driver),ProductTitle.getDescription());
+            new Validation("PRODUCT TITLE",elementText,hoverText).contains();
             ReportExtender.logScreen(driver);
         }
     }
