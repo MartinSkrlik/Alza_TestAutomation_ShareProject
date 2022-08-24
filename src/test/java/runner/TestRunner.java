@@ -18,7 +18,7 @@ import utility.Log;
 @RunWith(Cucumber.class)
 //Options used in test run
 @CucumberOptions(features   =  "src/test/java/features/",
-                 tags       = {"@AlzaFilterProducts"},
+                 tags       = {"@AlzaProductVanityVariants"},
                  glue       = {"steps"},
                  plugin     = {"pretty"},
                  monochrome = true)

@@ -67,7 +67,7 @@ public class ManageBrowser {
 			logPageError(e);
 		}
 	}
-	
+
 	@Given("^Open application \"([^\"]*)\"$")
     public void open_application(String application) throws Throwable {
 		String execFileLocation = ConfigFileReader.getValueFromProperties(application);

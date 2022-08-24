@@ -26,7 +26,7 @@ public class AlzaPage {
                 "PRICE MAX INPUT"),
         ItemCountAfterTwoFIlter(By.xpath("//span[@class='numberItem']"),
                 "ITEM COUNT AFTER TWO FILTER"),
-        ClearSelectedParameters(By.xpath("//div[@id='parametrization']//a[@id='clearFilter']"),
+        ClearSelectedParameters(By.xpath("//a[@id='clearFilter']"),
                 "CLEAR SELECTED PARAMETERS"),
         BrandsFilterGroup(By.xpath("//div[@id='producers']"),
                 "Brands Filter Group"),
@@ -35,6 +35,16 @@ public class AlzaPage {
         SubpageName(By.xpath("(//li[contains(@class, 'ui-state-active')]/a)[1]"),
                 "SUBPAGE NAME"),
         PageTitle (null, "Page title"),
+
+        ProductWithVariants (null, "Product with variants"),
+
+        Tiles (By.xpath("(//a[@class='group-link'])"), "Tiles"),
+
+        HoverText (By.xpath("//div[@class='group selected']/span"), "Hover Text"),
+
+        ProductTitle (By.xpath("//div[@id='h1c']/h1"),"Product Title"),
+
+        LoadMoreBtn (By.xpath("//a[@class='js-button-more button-more btnx normal']"), "Load More Button"),
         ;
         private String description;
         private By findBy;
@@ -107,4 +117,10 @@ public class AlzaPage {
     }
     public WebElement getPageTitleElement (String title) {return driver.findElement(getPageTitleLocator(title));}
     public By getPageTitleLocator (String title) {return By.xpath("//h1[contains(text(),'" + title + "')]");}
+
+    public WebElement getProductVariantsElement (String n_product) {return driver.findElement(getProductVariantsLocator(n_product));}
+    public By getProductVariantsLocator (String n_product) {return By.xpath("(//div[span[contains(text(),'Variants')]]/following-sibling::div/a)[" + n_product + "]");}
+
+    public WebElement getTileElement (int index) {return driver.findElement(getTileLocator(index));}
+    public By getTileLocator (int index) {return By.xpath("(//a[@class='group-link'])[" + index + "]");}
 }

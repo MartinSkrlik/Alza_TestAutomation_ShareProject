@@ -23,6 +23,8 @@ public class AlzaSteps extends TestStepActions {
     String itemsAfterPriceFiltering = "";
     String itemsAfterFilteringBrand = "";
     String itemsAfterFilteringItems = "";
+    String hoverText = "";
+    String productTitle = "";
 
     @And("Remember Item Count before filtering")
     public void rememberItemCountBeforeFiltering() {
@@ -40,6 +42,13 @@ public class AlzaSteps extends TestStepActions {
         clearAndSet(PriceMaxInput.getElement(driver), arg1);
     }
 
+    @And("Accept Cookies")
+    public void acceptCookies() {
+        waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20);
+        clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
+        ReportExtender.logScreen(driver);
+    }
+
     @And("Search {string}")
     public void search(String arg0) {
         waitForElementVisible(driver, SearchBar.getLocator(), SearchBar.getDescription(), 20);
@@ -49,8 +58,11 @@ public class AlzaSteps extends TestStepActions {
 
     @And("Verify Page Title {string} is visible")
     public void verifyPageTitle(String title) {
+        String elementText = getElementText(page.getPageTitleElement(title), PageTitle.getDescription());
         waitForElementVisible(driver, page.getPageTitleLocator(title), PageTitle.getDescription(), 60);
-        new Validation("Page Title", getElementText(page.getPageTitleElement(title), PageTitle.getDescription()), title).contains();
+        new Validation("Page Title", elementText, title).contains();
+        sleep(2000);
+        ReportExtender.logScreen(driver);
     }
 
     @Then("Remember Item Count after price filter")
@@ -62,6 +74,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Click checkbox {string}")
     public void click_Checkbox(String value) {
+        waitForElementVisible(driver,page.getCheckBoxElementLocator(value),BrandsFilterGroup.getDescription(),10 );
         scrollElementIntoMiddleOfScreen(driver,page.getCheckBoxElement(value));
         checkCheckbox(page.getCheckBoxElement(value), "CLICK ON CHECKBOX");
         verifyAlzaIsChecked(driver, page.getCheckBoxElementLocator(value));
@@ -159,10 +172,54 @@ public class AlzaSteps extends TestStepActions {
         ReportExtender.logScreen(driver);
     }
 
-    @And("Accept cookies")
-    public void acceptCookies() {
-        if (waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20)){
-            clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
+    boolean failedToLocate = false;
+    @Then("Click on Product with Variants {string}")
+    public void clickOnProductWithVariants(String n_product) {
+        sleep(2000);
+        while(!verifyElementIsPresent(driver,page.getProductVariantsLocator(n_product),ProductWithVariants.getDescription())) {
+            if(!verifyElementIsPresent(driver,LoadMoreBtn.getLocator(),LoadMoreBtn.getDescription())) {
+                failedToLocate = true;
+                ReportExtender.logWarning("Product has no variants.");
+                break;
+            }
+            clickElement(LoadMoreBtn.getElement(driver), LoadMoreBtn.getDescription());
+            sleep(2000);
+            ReportExtender.logScreen(driver);
+        }
+        if(!failedToLocate) {
+            productTitle = getElementText(page.getProductVariantsElement(n_product), ProductWithVariants.getDescription());
+            scrollElementIntoMiddleOfScreen(driver, page.getProductVariantsElement(n_product));
+            waitForFullPageLoad(driver, 10);
+            ReportExtender.logScreen(driver);
+            clickElement(page.getProductVariantsElement(n_product), ProductWithVariants.getDescription());
+            waitForFullPageLoad(driver, 10);
         }
     }
+
+    @And("Verify Title Product Page")
+    public void verifyTitleProductPage() {
+        if(!failedToLocate) {
+            String elementText = getElementText(ProductTitle.getElement(driver), ProductTitle.getDescription());
+            new Validation("PRODUCT PAGE TITLE", elementText, productTitle).contains();
+            ReportExtender.logScreen(driver);
+        }
+    }
+
+    @Then("Verify Product Variants")
+    public void verifyProductVariants() {
+        int elementsCount = driver.findElements(Tiles.getLocator()).size();
+        for (int i = 1; i<= elementsCount; i++ ) {
+            clickElement(page.getTileElement(i),Tiles.getDescription());
+            waitForFullPageLoad(driver,10);
+            mouseOverElement(driver, page.getTileElement(i), Tiles.getDescription());
+            waitForElementVisible(driver, HoverText.getLocator(),HoverText.getDescription(),10);
+            hoverText = getElementText(HoverText.getElement(driver),HoverText.getDescription());
+            ReportExtender.logScreen(driver);
+            ReportExtender.logInfo(hoverText);
+            String elementText = getElementText(ProductTitle.getElement(driver),ProductTitle.getDescription());
+            new Validation("PRODUCT TITLE",elementText,hoverText).contains();
+            ReportExtender.logScreen(driver);
+        }
+    }
+
 }
