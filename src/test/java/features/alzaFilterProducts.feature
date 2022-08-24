@@ -5,6 +5,7 @@ Feature: Alza Filter Products
   Scenario Outline:
     Given   Open browser "<BROWSER>"
     When    Go to page "<PAGE>"
+    And     Accept cookies
     And     Search "<TEXT>"
     And     Verify Page Title "<TITLE>" is visible
     And     Do a screenshot
