@@ -26,7 +26,7 @@ public class AlzaPage {
                 "PRICE MAX INPUT"),
         ItemCountAfterTwoFIlter(By.xpath("//span[@class='numberItem']"),
                 "ITEM COUNT AFTER TWO FILTER"),
-        ClearSelectedParameters(By.xpath("//div[@id='parametrization']//a[@id='clearFilter']"),
+        ClearSelectedParameters(By.xpath("//a[@id='clearFilter']"),
                 "CLEAR SELECTED PARAMETERS"),
         BrandsFilterGroup(By.xpath("//div[@id='producers']"),
                 "Brands Filter Group"),

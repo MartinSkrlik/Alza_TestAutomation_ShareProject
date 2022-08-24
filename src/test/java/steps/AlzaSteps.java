@@ -46,6 +46,7 @@ public class AlzaSteps extends TestStepActions {
     public void acceptCookies() {
         waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20);
         clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
+        ReportExtender.logScreen(driver);
     }
 
     @And("Search {string}")

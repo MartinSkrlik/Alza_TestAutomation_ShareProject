@@ -49,7 +49,7 @@ Feature: Alza Filter Products
     When    Go to page "<PAGE>"
     And     Accept Cookies
     And     Search "<TEXT>"
-    And     Verify Page Title "<TITLE>" is visible
+    And     Verify Page Title "<TEXT>" is visible
     And     Click checkbox "<NAME_CHECKBOX1>"
     Then    Click on Product with Variants "<INDEX>"
     And     Verify Title Product Page
@@ -58,8 +58,8 @@ Feature: Alza Filter Products
 
 
     Examples:
-      | BROWSER | PAGE | TEXT        | NAME_CHECKBOX1 | TITLE | INDEX |
-      | CHROME  | Alza | phone       | AlzaGuard      | phone | 1     |
-      | CHROME  | Alza | black phone | Spigen         | phone | 1     |
+      | BROWSER | PAGE | TEXT        | NAME_CHECKBOX1 | INDEX |
+      | CHROME  | Alza | phone       | AlzaGuard      | 1     |
+      | CHROME  | Alza | black phone | Spigen         | 1     |
 
 

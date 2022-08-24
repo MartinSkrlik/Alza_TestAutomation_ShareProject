@@ -873,7 +873,6 @@ public class TestStepActions {
     	assertNotNull(element);
     	Actions builder = new Actions(driver);
     	builder.moveToElement(element).click(element);
-		builder.moveToElement(element);
     	builder.perform();
     }
 
