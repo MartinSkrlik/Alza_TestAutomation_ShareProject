@@ -72,6 +72,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Click checkbox {string}")
     public void click_Checkbox(String value) {
+        waitForElementVisible(driver,page.getCheckBoxElementLocator(value),BrandsFilterGroup.getDescription(),10 );
         scrollElementIntoMiddleOfScreen(driver,page.getCheckBoxElement(value));
         checkCheckbox(page.getCheckBoxElement(value), "CLICK ON CHECKBOX");
         verifyAlzaIsChecked(driver, page.getCheckBoxElementLocator(value));
@@ -169,20 +170,37 @@ public class AlzaSteps extends TestStepActions {
         ReportExtender.logScreen(driver);
     }
 
+    boolean failedToLocate = false;
     @Then("Click on Product with Variants {string}")
     public void clickOnProductWithVariants(String n_product) {
-        productTitle = getElementText(page.getProductVariantsElement(n_product),ProductWithVariants.getDescription());
-        scrollElementIntoMiddleOfScreen(driver,page.getProductVariantsElement(n_product));
-        waitForFullPageLoad(driver,10);
-        ReportExtender.logScreen(driver);
-        clickElement(page.getProductVariantsElement(n_product),ProductWithVariants.getDescription());
-        waitForFullPageLoad(driver,10);
+        sleep(2000);
+        while(!verifyElementIsPresent(driver,page.getProductVariantsLocator(n_product),ProductWithVariants.getDescription())) {
+            if(!verifyElementIsPresent(driver,LoadMoreBtn.getLocator(),LoadMoreBtn.getDescription())){
+                failedToLocate = true;
+                break;
+            }else{
+                ReportExtender.logWarning("Product has no variants.");
+            }
+            clickElement(LoadMoreBtn.getElement(driver), LoadMoreBtn.getDescription());
+            sleep(2000);
+            ReportExtender.logScreen(driver);
+        }
+        if(!failedToLocate) {
+            productTitle = getElementText(page.getProductVariantsElement(n_product), ProductWithVariants.getDescription());
+            scrollElementIntoMiddleOfScreen(driver, page.getProductVariantsElement(n_product));
+            waitForFullPageLoad(driver, 10);
+            ReportExtender.logScreen(driver);
+            clickElement(page.getProductVariantsElement(n_product), ProductWithVariants.getDescription());
+            waitForFullPageLoad(driver, 10);
+        }
     }
 
     @And("Verify Title Product Page")
     public void verifyTitleProductPage() {
-        new Validation("PRODUCT PAGE TITLE",getElementText(ProductTitle.getElement(driver),ProductTitle.getDescription()),productTitle).contains();
-        ReportExtender.logScreen(driver);
+        if(!failedToLocate) {
+            new Validation("PRODUCT PAGE TITLE", getElementText(ProductTitle.getElement(driver), ProductTitle.getDescription()), productTitle).contains();
+            ReportExtender.logScreen(driver);
+        }
     }
 
     @Then("Verify Product Variants")

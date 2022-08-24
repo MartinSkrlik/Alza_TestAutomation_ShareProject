@@ -42,7 +42,9 @@ public class AlzaPage {
 
         HoverText (By.xpath("//div[@class='group selected']/span"), "Hover Text"),
 
-        ProductTitle (By.xpath("//div[@id='h1c']/h1"),"Product Title");
+        ProductTitle (By.xpath("//div[@id='h1c']/h1"),"Product Title"),
+
+        LoadMoreBtn (By.xpath("//a[@class='js-button-more button-more btnx normal']"), "Load More Button"),
         ;
         private String description;
         private By findBy;
