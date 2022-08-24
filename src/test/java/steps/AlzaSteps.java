@@ -176,7 +176,7 @@ public class AlzaSteps extends TestStepActions {
         waitForFullPageLoad(driver,10);
         ReportExtender.logScreen(driver);
         clickElement(page.getProductVariantsElement(n_product),ProductWithVariants.getDescription());
-        waitForFullPageLoad(driver,50);
+        waitForFullPageLoad(driver,10);
     }
 
     @And("Verify Title Product Page")
@@ -189,25 +189,16 @@ public class AlzaSteps extends TestStepActions {
     public void verifyProductVariants() {
         int elementsCount = driver.findElements(Tiles.getLocator()).size();
         for (int i = 1; i<= elementsCount; i++ ) {
-            //2.click
             clickElement(page.getTileElement(i),Tiles.getDescription());
-            sleep(2000);
-            //1.hover on element -> remember title from pop up
+            waitForFullPageLoad(driver,10);
             mouseOverElement(driver, page.getTileElement(i), Tiles.getDescription());
+            waitForElementVisible(driver, HoverText.getLocator(),HoverText.getDescription(),10);
             hoverText = getElementText(HoverText.getElement(driver),HoverText.getDescription());
             ReportExtender.logScreen(driver);
             ReportExtender.logInfo(hoverText);
-            //2.click
-            clickElement(page.getTileElement(i),Tiles.getDescription());
-            sleep(2000);
-//            driver.navigate().refresh();
-//            waitForFullPageLoad(driver,50);
-            //3.verify text from pop up with title
             new Validation("PRODUCT TITLE",getElementText(ProductTitle.getElement(driver),ProductTitle.getDescription()),hoverText).contains();
             ReportExtender.logScreen(driver);
         }
     }
-
-
 
 }
