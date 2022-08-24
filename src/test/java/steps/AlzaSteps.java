@@ -42,9 +42,6 @@ public class AlzaSteps extends TestStepActions {
 
     @And("Search {string}")
     public void search(String arg0) {
-        if (waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20)){
-            clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
-        }
         waitForElementVisible(driver, SearchBar.getLocator(), SearchBar.getDescription(), 20);
         setElementText(SearchBar.getElement(driver), arg0, SearchBar.getDescription());
         clickElement(SearchButton.getElement(driver), SearchButton.getDescription());
@@ -160,5 +157,12 @@ public class AlzaSteps extends TestStepActions {
     @And("Do a screenshot")
     public void doAScreenshot() {
         ReportExtender.logScreen(driver);
+    }
+
+    @And("Accept cookies")
+    public void acceptCookies() {
+        if (waitIfElementAppears(driver, CookieAcceptButton.getLocator(), CookieAcceptButton.getDescription(), 20)){
+            clickElement(CookieAcceptButton.getElement(driver), CookieAcceptButton.getDescription());
+        }
     }
 }
