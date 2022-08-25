@@ -284,9 +284,7 @@ public class AlzaSteps extends TestStepActions {
         }
     }
 
-    @Then("Go back on page")
-    public void goBackOnPage() {
-        goBack(driver);
-
+    @Then("Verify list is in alphabetical order")
+    public void verifyListIsInAlphabeticalOrder() {
     }
 }

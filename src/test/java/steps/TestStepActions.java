@@ -43,12 +43,7 @@ public class TestStepActions {
         });
     }
 
-
-    public void goBack(WebDriver driver) {
-		driver.navigate().back();
-	}
-
-	public void clearAndSet(WebElement element, String value){
+    public void clearAndSet(WebElement element, String value){
     	element.sendKeys(Keys.CONTROL, Keys.BACK_SPACE);
     	element.sendKeys(value);
 		element.sendKeys(Keys.ENTER);

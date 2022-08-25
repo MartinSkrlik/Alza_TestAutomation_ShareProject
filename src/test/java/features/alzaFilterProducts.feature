@@ -76,6 +76,7 @@ Feature: Alza Filter Products
     Then     Verify "<WARRANTY_CLAIM>" is selected from options
     When     Click on "<AUTHORISED>"
     Then     Verify list "<LIST>" of vendors is present
+    Then     Verify list is in alphabetical order
     When     Select vendor "<VENDOR1>"
     Then     Verify phone number "<PHONE_NUMBER>" is present
 
