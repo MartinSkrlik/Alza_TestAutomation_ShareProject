@@ -2,6 +2,7 @@ package steps;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import page.AlzaPage;
@@ -57,7 +58,7 @@ public class AlzaSteps extends TestStepActions {
     }
 
     @And("Verify Page Title {string} is visible")
-    public void verifyPageTitle(String title) {
+    public void verifyPageTitleIsVisible(String title) {
         String elementText = getElementText(page.getPageTitleElement(title), PageTitle.getDescription());
         waitForElementVisible(driver, page.getPageTitleLocator(title), PageTitle.getDescription(), 60);
         new Validation("Page Title", elementText, title).contains();
@@ -222,4 +223,70 @@ public class AlzaSteps extends TestStepActions {
         }
     }
 
+    @And("Click on {string}")
+    public void clickOn(String text) {
+        waitForElementVisible(driver, page.getButtonLocator(text), "WAIT FOR ELEMENT VISIBLE",10);
+        clickElement(page.getButtonElement(text), "CLICK ON BUTTON");
+    }
+
+    @When("Verify Page Title {string}")
+    public void verifyPageTitle(String text) {
+        String elementText = getElementText(page.getTitleElement(text), PageTitle.getDescription());
+        waitForElementVisible(driver, page.getTitleLocator(text), PageTitle.getDescription(), 60);
+        new Validation("Page Title", elementText, text).contains();
+        ReportExtender.logScreen(driver);
+    }
+
+    @Then("Click on {string} button on contact page")
+    public void clickOnButtonOnContactPage(String text) {
+        clickElement(page.getTabElement(text), "CLICK ON BUTTON");
+        waitForElementVisible(driver, page.getTabLocator(text),"WAIT FOR ELEMENT VISIBLE", 10 );
+
+    }
+
+    @Then("Verify {string} is selected on contact page")
+    public void verifyIsSelectedOnContactPage(String text) {
+        verifyButtonIsPresent(driver, page.getSelectedButtonLocator(text), "WAIT FOR ELEMENT VISIBLE");
+        ReportExtender.logScreen(driver);
+    }
+
+    @Then("Verify {string} is selected from options")
+    public void verifyIsSelectedFromOptions(String text) {
+        verifyButtonIsPresent(driver, page.getSelectedButtonSecondLocator(text), "WAIT FOR ELEMENT VISIBLE");
+        ReportExtender.logScreen(driver);
+    }
+
+    @Then("Verify list {string} of vendors is present")
+    public void verifyListOfVendorsIsPresent(String text) {
+        waitForElementVisible(driver, VarrantyClaimPageTitle.getLocator(), "WAIT FOR ELEMENT VISIBLE", 10 );
+        String elementText = getElementText(page.getListElement(text), PageTitle.getDescription());
+        new Validation("Page Title", elementText, text).contains();
+        ReportExtender.logScreen(driver);
+    }
+
+    @When("Select vendor {string}")
+    public void selectVendor(String text) {
+        waitForElementVisible(driver, page.getServiceLocator(text), "WAIT FOR ELEMENT VISIBLE", 10);
+        clickElement(page.getServiceElement(text),"CLICK ON SERVICE");
+    }
+
+    @Then("Verify phone number {string} is present")
+    public void verifyPhoneNumberIsPresent(String text) {
+        if (waitIfElementAppears(driver, page.getNumberLocator(text), "VERIFY PHONE NUMBER IS PRESENT",10 ))
+        {
+            String elementText = getElementText(page.getNumberElement(text), "GET NUMBER");
+            new Validation("PHONE NUMBER", elementText, text).contains();
+            ReportExtender.logScreen(driver);
+        }
+        else
+        {
+            ReportExtender.logFail("PHONE NUMBER IS NOT PRESENT");
+        }
+    }
+
+    @Then("Go back on page")
+    public void goBackOnPage() {
+        goBack(driver);
+
+    }
 }

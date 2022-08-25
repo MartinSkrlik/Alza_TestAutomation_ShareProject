@@ -39,7 +39,7 @@ Feature: Alza Filter Products
 
     Examples:
       | BROWSER | PAGE | TEXT   | TITLE   | MIN | MAX  | NAME_CHECKBOX2 | NAME_CHECKBOX1 | TAB1              | TAB2              |
-      | CHROME  | Alza | Tablet | Tablets | 10 | 1000 | GPS            | Apple          | Price High to Low | Price Low to High |
+      | CHROME  | Alza | Tablet | Tablets | 10  | 1000 | GPS            | Apple          | Price High to Low | Price Low to High |
 #      | CHROME  | Alza | Tablet | Tablets | 300 | 700  | Bluetooth      | Samsung        | Price High to Low | Price Low to High |
 
 
@@ -63,3 +63,27 @@ Feature: Alza Filter Products
       | CHROME  | Alza | black phone | Spigen         | 1     |
 
 
+  @ProductClaims
+  Scenario Outline: Product Claims
+    Given    Open browser "<BROWSER>"
+    When     Go to page "<PAGE>"
+    And      Accept Cookies
+    And      Click on "<BUTTON>"
+    When     Verify Page Title "<TITLE>"
+    Then     Click on "<CLAIMS>" button on contact page
+    Then     Verify "<CLAIMS>" is selected on contact page
+    When     Click on "<WARRANTY_CLAIM>"
+    Then     Verify "<WARRANTY_CLAIM>" is selected from options
+    When     Click on "<AUTHORISED>"
+    Then     Verify list "<LIST>" of vendors is present
+    When     Select vendor "<VENDOR1>"
+    Then     Verify phone number "<PHONE_NUMBER>" is present
+
+
+
+    Examples:
+      | BROWSER | PAGE | BUTTON          | TITLE                       | CLAIMS           | WARRANTY_CLAIM                  | AUTHORISED                 | VENDOR1                        | LIST                               | PHONE_NUMBER     |
+      | CHROME  | Alza | Contact us      | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | Acer - projektory SK (SK_AC1)  | List of Authorised Service Centres | +421 2 3333 1027 |
+      | CHROME  | Alza | Kontaktujte nás | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | Acer - projektory SK (SK_AC1)  | List of Authorised Service Centres | +421 2 3333 1027 |
+      | CHROME  | Alza | Contact us      | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | American Tourister SK (SK_AMT) | List of Authorised Service Centres | +421 2 3333 1027 |
+      | CHROME  | Alza | Kontaktujte nás | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | American Tourister SK (SK_AMT) | List of Authorised Service Centres | +421 2 3333 1027 |

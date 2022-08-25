@@ -45,6 +45,7 @@ public class AlzaPage {
         ProductTitle (By.xpath("//div[@id='h1c']/h1"),"Product Title"),
 
         LoadMoreBtn (By.xpath("//a[@class='js-button-more button-more btnx normal']"), "Load More Button"),
+        VarrantyClaimPageTitle (By.xpath("//div[@id='h1c']/h1"), "VARRANTY CLAIM PAGE TITLE"),
         ;
         private String description;
         private By findBy;
@@ -123,4 +124,30 @@ public class AlzaPage {
 
     public WebElement getTileElement (int index) {return driver.findElement(getTileLocator(index));}
     public By getTileLocator (int index) {return By.xpath("(//a[@class='group-link'])[" + index + "]");}
+
+    public WebElement getButtonElement (String text) {return driver.findElement(getButtonLocator(text));}
+    public By getButtonLocator(String text) {return By.xpath("//a[text()='"+text+"']");}
+
+    public WebElement getTitleElement (String text) {return driver.findElement(getTitleLocator(text));}
+    public By getTitleLocator (String text) {return By.xpath("//div[contains(text(),'"+text+"')]");}
+
+    public WebElement getTabElement (String text) {return driver.findElement(getTabLocator(text));}
+    public By getTabLocator (String text) {return By.xpath("//span[contains(text(),'"+text+"')]");}
+
+    public WebElement getSelectedButtonElement (String text) {return driver.findElement(getTabLocator(text));}
+    public By getSelectedButtonLocator (String text) {return By.xpath("//a[contains(@class,'selected')]/span[contains(text(),'"+text+"')]");}
+
+    public WebElement getSelectedButtonSecondElement (String text) {return driver.findElement(getSelectedButtonSecondLocator(text));}
+    public By getSelectedButtonSecondLocator (String text) {return By.xpath("//a[normalize-space()= '"+text+"' and contains(@class,'blue')]");}
+
+    public WebElement getListElement (String text) {return driver.findElement(getListLocator(text));}
+    public By getListLocator (String text) {return By.xpath("//h3[contains(text(),'"+text+"')]");}
+
+    public WebElement getServiceElement (String text) {return driver.findElement(getServiceLocator(text));}
+    public By getServiceLocator (String text) {return By.xpath("//a[contains(text(),'"+text+"')]");}
+
+    public WebElement getNumberElement (String text) {return driver.findElement(getNumberLocator(text));}
+    public By getNumberLocator (String text) {return By.xpath("//*[normalize-space()= '"+text+"']");}
+
+
 }
