@@ -255,6 +255,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Verify {string} is selected from options")
     public void verifyIsSelectedFromOptions(String text) {
+        waitForElementVisible(driver, page.getSelectedButtonSecondLocator(text),"WAIT FOR ELEMENT VISIBLE",10 );
         verifyButtonIsPresent(driver, page.getSelectedButtonSecondLocator(text), "WAIT FOR ELEMENT VISIBLE");
         ReportExtender.logScreen(driver);
     }

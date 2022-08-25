@@ -153,7 +153,7 @@ public class AlzaPage {
     public By getServiceLocator (String text) {return By.xpath("//a[contains(text(),'"+text+"')]");}
 
     public WebElement getNumberElement (String text) {return driver.findElement(getNumberLocator(text));}
-    public By getNumberLocator (String text) {return By.xpath("//*[normalize-space()= '"+text+"']");}
+    public By getNumberLocator (String text) {return By.xpath("//*[contains(text(), '"+text+"')]");}
 
 
 }

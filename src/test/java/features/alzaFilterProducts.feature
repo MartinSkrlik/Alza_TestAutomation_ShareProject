@@ -77,14 +77,14 @@ Feature: Alza Filter Products
     When     Click on "<AUTHORISED>"
     Then     Verify list "<LIST>" of vendors is present
     Then     Verify list is in alphabetical order
-    When     Select vendor "<VENDOR1>"
+    When     Select vendor "<VENDOR>"
     Then     Verify phone number "<PHONE_NUMBER>" is present
 
 
 
     Examples:
-      | BROWSER | PAGE | BUTTON          | TITLE                       | CLAIMS           | WARRANTY_CLAIM                  | AUTHORISED                 | VENDOR1                        | LIST                               | PHONE_NUMBER     |
-      | CHROME  | Alza | Contact us      | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | Acer - projektory SK (SK_AC1)  | List of Authorised Service Centres | +421 2 3333 1027 |
-      | CHROME  | Alza | Kontaktujte nás | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | Acer - projektory SK (SK_AC1)  | List of Authorised Service Centres | +421 2 3333 1027 |
+      | BROWSER | PAGE | BUTTON          | TITLE                       | CLAIMS           | WARRANTY_CLAIM                  | AUTHORISED                 | VENDOR                         | LIST                               | PHONE_NUMBER     |
+      | CHROME  | Alza | Contact us      | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | Acer                           | List of Authorised Service Centres | +421 911 792 034 |
+      | CHROME  | Alza | Kontaktujte nás | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | Acer                           | List of Authorised Service Centres | +421 911 792 034 |
       | CHROME  | Alza | Contact us      | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | American Tourister SK (SK_AMT) | List of Authorised Service Centres | +421 2 3333 1027 |
       | CHROME  | Alza | Kontaktujte nás | What do you need help with? | Claims & Returns | I want to make a warranty claim | Find an authorised service | American Tourister SK (SK_AMT) | List of Authorised Service Centres | +421 2 3333 1027 |
