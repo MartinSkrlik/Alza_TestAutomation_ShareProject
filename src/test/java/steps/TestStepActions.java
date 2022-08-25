@@ -1,6 +1,7 @@
 package steps;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.time.Duration;
 import static org.junit.Assert.assertNotNull;
@@ -920,4 +921,22 @@ public class TestStepActions {
         return (String) javascript.executeScript(String.format(
                     "return window.sessionStorage.getItem('%s');", key));
     }
+
+	public boolean isAlphabaticOrder(String string) {
+		int n = string.length();
+		char character[] = new char [n];
+
+		for (int i = 0; i < n; i++) {
+			character[i] = string.charAt(i);
+		}
+
+		Arrays.sort(character);
+
+		for (int i = 0; i < n; i++)
+			if (character[i] != string.charAt(i))
+				return false;
+
+		return true;
+	}
+
 }

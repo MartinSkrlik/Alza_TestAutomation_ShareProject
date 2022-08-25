@@ -11,13 +11,15 @@ import utility.ReportExtender;
 import utility.Validation;
 
 import static page.AlzaPage.alzaItems.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class AlzaSteps extends TestStepActions {
     static runner.TestRunner TestRunner = new TestRunner();
     private static HashMap<String, Object> globalParametersMap = TestRunner.getGlobalParametersMap();
-    private WebDriver driver = (WebDriver)globalParametersMap.get("driver");
+    private WebDriver driver = (WebDriver) globalParametersMap.get("driver");
 
     AlzaPage page = new AlzaPage(driver);
     String itemsPreFiltering = "";
@@ -75,8 +77,8 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Click checkbox {string}")
     public void click_Checkbox(String value) {
-        waitForElementVisible(driver,page.getCheckBoxElementLocator(value),BrandsFilterGroup.getDescription(),10 );
-        scrollElementIntoMiddleOfScreen(driver,page.getCheckBoxElement(value));
+        waitForElementVisible(driver, page.getCheckBoxElementLocator(value), BrandsFilterGroup.getDescription(), 10);
+        scrollElementIntoMiddleOfScreen(driver, page.getCheckBoxElement(value));
         checkCheckbox(page.getCheckBoxElement(value), "CLICK ON CHECKBOX");
         verifyAlzaIsChecked(driver, page.getCheckBoxElementLocator(value));
     }
@@ -103,7 +105,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Verify first item price between {string} and {string}")
     public void verifyFirstItemPriceBetweenAnd(String arg0, String arg1) {
-        scrollElementIntoMiddleOfScreen(driver,page.getItemPriceByIndexElement("1"));
+        scrollElementIntoMiddleOfScreen(driver, page.getItemPriceByIndexElement("1"));
         String stringItemPrice = getElementText(page.getItemPriceByIndexElement("1"), "FIRST ITEM PRICE");
         stringItemPrice = stringItemPrice.replace("&nbsp;€", "");
         double itemPrice = Double.parseDouble(stringItemPrice);
@@ -111,7 +113,7 @@ public class AlzaSteps extends TestStepActions {
         double max = Double.parseDouble(arg1);
 
         boolean isInRange = false;
-        if (itemPrice >= min && itemPrice <= max){
+        if (itemPrice >= min && itemPrice <= max) {
             isInRange = true;
         }
         new Validation("Verify item price is price filter range", isInRange).isTrue();
@@ -129,7 +131,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Uncheck checkbox {string}")
     public void uncheckCheckbox(String value) {
-        scrollElementIntoMiddleOfScreen(driver,page.getCheckBoxElement(value));
+        scrollElementIntoMiddleOfScreen(driver, page.getCheckBoxElement(value));
         checkCheckbox(page.getCheckBoxElement(value), "UNCHECK CHECKBOX");
         verifyAlzaIsUnchecked(driver, page.getCheckBoxElementLocator(value));
 
@@ -174,11 +176,12 @@ public class AlzaSteps extends TestStepActions {
     }
 
     boolean failedToLocate = false;
+
     @Then("Click on Product with Variants {string}")
     public void clickOnProductWithVariants(String n_product) {
         sleep(2000);
-        while(!verifyElementIsPresent(driver,page.getProductVariantsLocator(n_product),ProductWithVariants.getDescription())) {
-            if(!verifyElementIsPresent(driver,LoadMoreBtn.getLocator(),LoadMoreBtn.getDescription())) {
+        while (!verifyElementIsPresent(driver, page.getProductVariantsLocator(n_product), ProductWithVariants.getDescription())) {
+            if (!verifyElementIsPresent(driver, LoadMoreBtn.getLocator(), LoadMoreBtn.getDescription())) {
                 failedToLocate = true;
                 ReportExtender.logWarning("Product has no variants.");
                 break;
@@ -187,7 +190,7 @@ public class AlzaSteps extends TestStepActions {
             sleep(2000);
             ReportExtender.logScreen(driver);
         }
-        if(!failedToLocate) {
+        if (!failedToLocate) {
             productTitle = getElementText(page.getProductVariantsElement(n_product), ProductWithVariants.getDescription());
             scrollElementIntoMiddleOfScreen(driver, page.getProductVariantsElement(n_product));
             waitForFullPageLoad(driver, 10);
@@ -199,7 +202,7 @@ public class AlzaSteps extends TestStepActions {
 
     @And("Verify Title Product Page")
     public void verifyTitleProductPage() {
-        if(!failedToLocate) {
+        if (!failedToLocate) {
             String elementText = getElementText(ProductTitle.getElement(driver), ProductTitle.getDescription());
             new Validation("PRODUCT PAGE TITLE", elementText, productTitle).contains();
             ReportExtender.logScreen(driver);
@@ -209,23 +212,23 @@ public class AlzaSteps extends TestStepActions {
     @Then("Verify Product Variants")
     public void verifyProductVariants() {
         int elementsCount = driver.findElements(Tiles.getLocator()).size();
-        for (int i = 1; i<= elementsCount; i++ ) {
-            clickElement(page.getTileElement(i),Tiles.getDescription());
-            waitForFullPageLoad(driver,10);
+        for (int i = 1; i <= elementsCount; i++) {
+            clickElement(page.getTileElement(i), Tiles.getDescription());
+            waitForFullPageLoad(driver, 10);
             mouseOverElement(driver, page.getTileElement(i), Tiles.getDescription());
-            waitForElementVisible(driver, HoverText.getLocator(),HoverText.getDescription(),10);
-            hoverText = getElementText(HoverText.getElement(driver),HoverText.getDescription());
+            waitForElementVisible(driver, HoverText.getLocator(), HoverText.getDescription(), 10);
+            hoverText = getElementText(HoverText.getElement(driver), HoverText.getDescription());
             ReportExtender.logScreen(driver);
             ReportExtender.logInfo(hoverText);
-            String elementText = getElementText(ProductTitle.getElement(driver),ProductTitle.getDescription());
-            new Validation("PRODUCT TITLE",elementText,hoverText).contains();
+            String elementText = getElementText(ProductTitle.getElement(driver), ProductTitle.getDescription());
+            new Validation("PRODUCT TITLE", elementText, hoverText).contains();
             ReportExtender.logScreen(driver);
         }
     }
 
     @And("Click on {string}")
     public void clickOn(String text) {
-        waitForElementVisible(driver, page.getButtonLocator(text), "WAIT FOR ELEMENT VISIBLE",10);
+        waitForElementVisible(driver, page.getButtonLocator(text), "WAIT FOR ELEMENT VISIBLE", 10);
         clickElement(page.getButtonElement(text), "CLICK ON BUTTON");
     }
 
@@ -240,7 +243,7 @@ public class AlzaSteps extends TestStepActions {
     @Then("Click on {string} button on contact page")
     public void clickOnButtonOnContactPage(String text) {
         clickElement(page.getTabElement(text), "CLICK ON BUTTON");
-        waitForElementVisible(driver, page.getTabLocator(text),"WAIT FOR ELEMENT VISIBLE", 10 );
+        waitForElementVisible(driver, page.getTabLocator(text), "WAIT FOR ELEMENT VISIBLE", 10);
 
     }
 
@@ -258,7 +261,7 @@ public class AlzaSteps extends TestStepActions {
 
     @Then("Verify list {string} of vendors is present")
     public void verifyListOfVendorsIsPresent(String text) {
-        waitForElementVisible(driver, VarrantyClaimPageTitle.getLocator(), "WAIT FOR ELEMENT VISIBLE", 10 );
+        waitForElementVisible(driver, VarrantyClaimPageTitle.getLocator(), "WAIT FOR ELEMENT VISIBLE", 10);
         String elementText = getElementText(page.getListElement(text), PageTitle.getDescription());
         new Validation("Page Title", elementText, text).contains();
         ReportExtender.logScreen(driver);
@@ -267,24 +270,38 @@ public class AlzaSteps extends TestStepActions {
     @When("Select vendor {string}")
     public void selectVendor(String text) {
         waitForElementVisible(driver, page.getServiceLocator(text), "WAIT FOR ELEMENT VISIBLE", 10);
-        clickElement(page.getServiceElement(text),"CLICK ON SERVICE");
+        clickElement(page.getServiceElement(text), "CLICK ON SERVICE");
     }
 
     @Then("Verify phone number {string} is present")
     public void verifyPhoneNumberIsPresent(String text) {
-        if (waitIfElementAppears(driver, page.getNumberLocator(text), "VERIFY PHONE NUMBER IS PRESENT",10 ))
-        {
+        if (waitIfElementAppears(driver, page.getNumberLocator(text), "VERIFY PHONE NUMBER IS PRESENT", 10)) {
             String elementText = getElementText(page.getNumberElement(text), "GET NUMBER");
             new Validation("PHONE NUMBER", elementText, text).contains();
             ReportExtender.logScreen(driver);
-        }
-        else
-        {
+        } else {
             ReportExtender.logFail("PHONE NUMBER IS NOT PRESENT");
         }
     }
 
     @Then("Verify list is in alphabetical order")
     public void verifyListIsInAlphabeticalOrder() {
+        int elementsCount = driver.findElements(Letters.getLocator()).size();
+        String letter = "";
+        String letters = "";
+        char[] character = new char[elementsCount];
+        for (int i = 1; i <= elementsCount; i++) {
+            letter = getElementText(page.getLetterElement(i), Letters.getDescription());
+            character[i - 1] = letter.charAt(0);
+            letters += character[i - 1];
+        }
+
+        if (isAlphabaticOrder(letters)) {
+            ReportExtender.logPass("List of of vendors is in alphabetical order.");
+        } else {
+            ReportExtender.logFail("List of of vendors is not in alphabetical order.");
+        }
     }
+
+
 }
