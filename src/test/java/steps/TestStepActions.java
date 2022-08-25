@@ -1,6 +1,7 @@
 package steps;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.time.Duration;
 import static org.junit.Assert.assertNotNull;
@@ -633,7 +634,19 @@ public class TestStepActions {
             return false; 
         }
     }
-    
+
+	public boolean verifyButtonIsPresent(WebDriver driver, By locator, String description) {
+		List<WebElement> pageElements = driver.findElements(locator);
+		if (pageElements.size() != 0) {
+			ReportExtender.logInfo("Element is present on the webpage.");
+			return true;
+		}
+		else {
+			ReportExtender.logInfo("Element is not present on the webpage.");
+			return false;
+		}
+	}
+
 /**
  	* Checks if a specific element is selected.
  	* @param driver - [WebDriver] - current WebDriver.
@@ -653,7 +666,19 @@ public class TestStepActions {
         }
     }
 
-	public boolean verifyAlzaIsChecked(WebDriver driver, By locator) {
+	public boolean verifyButtonIsSelected(WebDriver driver, By locator, String description) {
+		if(driver.findElement(locator).isSelected()) {
+			ReportExtender.logInfo("Element is Selected");
+			return true;
+		}
+		else {
+			ReportExtender.logInfo("Element is not Selected");
+			return false;
+		}
+	}
+
+
+    public boolean verifyAlzaIsChecked(WebDriver driver, By locator) {
 		if(driver.findElement(locator).getAttribute("class").contains("checked")) {
 			ReportExtender.logPass("Element is checked");
 			return true;
@@ -896,4 +921,22 @@ public class TestStepActions {
         return (String) javascript.executeScript(String.format(
                     "return window.sessionStorage.getItem('%s');", key));
     }
+
+	public boolean isAlphabaticOrder(String string) {
+		int n = string.length();
+		char character[] = new char [n];
+
+		for (int i = 0; i < n; i++) {
+			character[i] = string.charAt(i);
+		}
+
+		Arrays.sort(character);
+
+		for (int i = 0; i < n; i++)
+			if (character[i] != string.charAt(i))
+				return false;
+
+		return true;
+	}
+
 }
